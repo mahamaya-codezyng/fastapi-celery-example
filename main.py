@@ -44,8 +44,10 @@ async def run_task():
 
 @app.get("/task-status/{task_id}")
 async def get_task_status(task_id: str):
+    print(f"task started for {task_id}")
     # Check the task status
     result = generate_image.AsyncResult(task_id)
+    print(f"image generated for {task_id} : {result.result}")
     if result.state == "PENDING":
         return {"task_id": task_id, "status": "Task is still processing"}
     elif result.state == "SUCCESS":

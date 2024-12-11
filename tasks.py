@@ -26,6 +26,12 @@ celery_app = Celery(
     backend="redis://localhost:6379/0",  # Redis as the result backend
 )
 
+# Use the threads pool (this works better on Windows)
+celery_app.conf.update(
+    task_pool='threads',  # Using threads pool
+    worker_concurrency=3,  # Set how many threads you want
+)
+
 # DALL-E client setup
 client = AzureOpenAI(
     api_version="2024-02-01",
